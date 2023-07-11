@@ -66,36 +66,44 @@ func (r *users) GetLastKodeAlternatif() ([]int, error) {
 		return nil, err
 	}
 
-	var numbers []int
+	if len(lastKode) == 0 {
+		var missingNumbers []int
 
-	for _, item := range lastKode {
-		numberStr := strings.TrimPrefix(item, "A")
-		number, err := strconv.Atoi(numberStr)
-		if err != nil {
-			fmt.Println(err)
-			continue
+		missingNumbers = append(missingNumbers, 1)
+
+		return missingNumbers, err
+	} else {
+		var numbers []int
+
+		for _, item := range lastKode {
+			numberStr := strings.TrimPrefix(item, "A")
+			number, err := strconv.Atoi(numberStr)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			numbers = append(numbers, number)
 		}
-		numbers = append(numbers, number)
-	}
 
-	if len(numbers) == 0 {
-		return nil, err
-	}
-
-	sort.Ints(numbers)
-
-	var missingNumbers []int
-	lastNumber := numbers[len(numbers)-1]
-
-	for i := 1; i < lastNumber; i++ {
-		if !containsKode(numbers, i) {
-			missingNumbers = append(missingNumbers, i)
-			return missingNumbers, err
+		if len(numbers) == 0 {
+			return nil, err
 		}
-	}
-	missingNumbers = append(missingNumbers, lastNumber+1)
 
-	return missingNumbers, err
+		sort.Ints(numbers)
+
+		var missingNumbers []int
+		lastNumber := numbers[len(numbers)-1]
+
+		for i := 1; i < lastNumber; i++ {
+			if !containsKode(numbers, i) {
+				missingNumbers = append(missingNumbers, i)
+				return missingNumbers, err
+			}
+		}
+		missingNumbers = append(missingNumbers, lastNumber+1)
+
+		return missingNumbers, err
+	}
 }
 
 func containsKode(data []int, num int) bool {
