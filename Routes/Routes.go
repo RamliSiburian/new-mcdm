@@ -4,4 +4,5 @@ import "github.com/gorilla/mux"
 
 func RouteInit(r *mux.Router) {
 	KriteriaRoutes(r)
+	AlternatifRoutes(r)
 }
