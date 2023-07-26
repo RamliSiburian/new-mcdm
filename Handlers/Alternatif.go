@@ -59,19 +59,21 @@ func (h *handleralternatif) InsertAlternatif(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	lastcode, err := h.AlternatifRepository.GetLastKodeAlternatif()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
-		json.NewEncoder(w).Encode(response)
-		return
-	}
+	// lastcode, err := h.AlternatifRepository.GetLastKodeAlternatif()
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+	// 	json.NewEncoder(w).Encode(response)
+	// 	return
+	// }
 
-	newKode := "A" + strconv.Itoa(lastcode[0])
+	// newKode := "A" + strconv.Itoa(lastcode[0])
 
 	createAlternatif := models.Alternatif{
-		Kode:           newKode,
+		Kode:           request.Kode,
+		KodeKriteria:   request.KodeKriteria,
 		NamaAlternatif: request.NamaAlternatif,
+		Nilai:          request.Nilai,
 		CreatedAt:      time.Now(),
 	}
 
@@ -150,16 +152,16 @@ func (h *handleralternatif) DeleteAlternatif(w http.ResponseWriter, r *http.Requ
 	w.Header().Set("Content-Type", "application/json")
 
 	kodeAlternatif := mux.Vars(r)["kode"]
-	alternatif, err := h.AlternatifRepository.GetAlternatifByKode(kodeAlternatif)
+	// alternatif, err := h.AlternatifRepository.GetAlternatifByKode(kodeAlternatif)
 
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
-		json.NewEncoder(w).Encode(response)
-		return
-	}
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+	// 	json.NewEncoder(w).Encode(response)
+	// 	return
+	// }
 
-	deleteAlternatif, err := h.AlternatifRepository.DeleteAlternatif(alternatif)
+	deleteAlternatif, err := h.AlternatifRepository.DeleteAlternatif(kodeAlternatif)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
