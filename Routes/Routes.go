@@ -6,4 +6,6 @@ func RouteInit(r *mux.Router) {
 	KriteriaRoutes(r)
 	AlternatifRoutes(r)
 	AuthRoutes((r))
+	PerbandinganAhpRoutes(r)
+	PerbandinganMopaRoutes(r)
 }
