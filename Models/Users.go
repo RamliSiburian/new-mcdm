@@ -7,11 +7,11 @@ type User struct {
 	Role     string `json:"role" gorm:"type: varchar(255)"`
 }
 
-type UserResponse struct {
-	ID       int    `json:"id"`
-	Username string `json:"username"`
-}
+// type UserResponse struct {
+// 	ID       int    `json:"id"`
+// 	Username string `json:"username"`
+// }
 
-func (UserResponse) TableName() string {
-	return "users"
-}
+// func (UserResponse) TableName() string {
+// 	return "users"
+// }

@@ -7,7 +7,7 @@ import (
 )
 
 func Migration() {
-	err := mysql.DB.AutoMigrate(&models.User{}, &models.Kriteria{}, &models.Alternatif{}, &models.PerbandinganAhp{}, &models.PerbandinganMopa{})
+	err := mysql.DB.AutoMigrate(&models.User{}, &models.Kriteria{}, &models.Alternatif{}, &models.PerbandinganAhp{}, &models.PerbandinganMopa{}, &models.PerbandinganCriteriaAhp{})
 
 	if err != nil {
 		panic("migration failed")

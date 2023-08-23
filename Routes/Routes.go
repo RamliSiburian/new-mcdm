@@ -7,5 +7,6 @@ func RouteInit(r *mux.Router) {
 	AlternatifRoutes(r)
 	AuthRoutes((r))
 	PerbandinganAhpRoutes(r)
+	PerbandinganCriteriaAhpRoutes(r)
 	PerbandinganMopaRoutes(r)
 }
