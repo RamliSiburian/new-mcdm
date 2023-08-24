@@ -31,7 +31,7 @@ func (r *users) FindKriteria() ([]models.Kriteria, error) {
 	var kriteria []models.Kriteria
 
 	// err := r.db.Order("CAST(kode AS INT) asc").Find(&kriteria).Error
-	err := r.db.Order("CAST(SUBSTRING(kode FROM 2) AS UNSIGNED) ASC").Find(&kriteria).Error
+	err := r.db.Order("kode ASC").Find(&kriteria).Error
 
 	return kriteria, err
 }
