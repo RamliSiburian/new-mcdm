@@ -30,8 +30,7 @@ func RepositoryKriteria(db *gorm.DB) *users {
 func (r *users) FindKriteria() ([]models.Kriteria, error) {
 	var kriteria []models.Kriteria
 
-	// err := r.db.Order("CAST(kode AS INT) asc").Find(&kriteria).Error
-	err := r.db.Order("kode ASC").Find(&kriteria).Error
+	err := r.db.Find(&kriteria).Error
 
 	return kriteria, err
 }
