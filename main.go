@@ -32,5 +32,9 @@ func main() {
 	var AllowedMethods = handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "PATCH", "DELETE"})
 	var AllowedOrigins = handlers.AllowedOrigins([]string{"*"})
 
-	http.ListenAndServe("localhost:5000", handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	// http.ListenAndServe("localhost:5000", handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	err = http.ListenAndServeTLS(":443", "cert.pem", "key.pem", handlers.CORS(AllowedHeaders, AllowedMethods, AllowedOrigins)(r))
+	if err != nil {
+		fmt.Println("Error starting server:", err)
+	}
 }
