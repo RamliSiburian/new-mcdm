@@ -17,6 +17,7 @@ type AlternatifRepository interface {
 	GetAlternatifByKode(kode string) (models.Alternatif, error)
 	UpdateAlternatif(alternatif models.Alternatif) (models.Alternatif, error)
 	DeleteAlternatif(kode string) (models.Alternatif, error)
+	GetAlternatifByKodeAndKodeKriteria(kode, kodeKriteria string) (models.Alternatif, error)
 }
 
 func RepositoryAlternatif(db *gorm.DB) *users {
@@ -45,9 +46,20 @@ func (r *users) GetAlternatifByKode(kode string) (models.Alternatif, error) {
 	return alternatif, err
 }
 
+func (r *users) GetAlternatifByKodeAndKodeKriteria(kode, kodeKriteria string) (models.Alternatif, error) {
+	var alternatif models.Alternatif
+	err := r.db.Where("kode = ? AND kode_kriteria = ?", kode, kodeKriteria).First(&alternatif).Error
+	return alternatif, err
+}
+
+// func (r *users) UpdateAlternatif(alternatif models.Alternatif) (models.Alternatif, error) {
+// 	err := r.db.Save(&alternatif).Error
+
+// 	return alternatif, err
+// }
+
 func (r *users) UpdateAlternatif(alternatif models.Alternatif) (models.Alternatif, error) {
 	err := r.db.Save(&alternatif).Error
-
 	return alternatif, err
 }
 

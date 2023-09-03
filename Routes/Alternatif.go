@@ -16,7 +16,8 @@ func AlternatifRoutes(r *mux.Router) {
 	r.HandleFunc("/alternatif/lastCode", h.LastCode).Methods("POST")
 	r.HandleFunc("/alternatif", h.InsertAlternatif).Methods("POST")
 	r.HandleFunc("/alternatif/{kode}", h.GetAlternatifByKode).Methods("GET")
+	r.HandleFunc("/alternatif/{kode}/{kodeKriteria}", h.GetAlternatifByKodeAndKodeKriteria).Methods("GET")
 	r.HandleFunc("/alternatif/delete/{kode}", h.DeleteAlternatif).Methods("DELETE")
-	r.HandleFunc("/alternatif/edit/{kode}", h.UpdateAlternatif).Methods("PATCH")
+	r.HandleFunc("/alternatif/edit/{kode}/{kodeKriteria}", h.UpdateAlternatif).Methods("PATCH")
 
 }

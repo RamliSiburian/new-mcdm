@@ -110,6 +110,27 @@ func (h *handleralternatif) GetAlternatifByKode(w http.ResponseWriter, r *http.R
 	json.NewEncoder(w).Encode(response)
 }
 
+func (h *handleralternatif) GetAlternatifByKodeAndKodeKriteria(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	kode, _ := mux.Vars(r)["kode"]
+	kodeKriteria, _ := mux.Vars(r)["kodeKriteria"]
+
+	var alternatif models.Alternatif
+
+	alternatif, err := h.AlternatifRepository.GetAlternatifByKodeAndKodeKriteria(kode, kodeKriteria)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	response := dto.SuccessResult{Code: http.StatusOK, Data: alternatif}
+	json.NewEncoder(w).Encode(response)
+}
+
 func (h *handleralternatif) UpdateAlternatif(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -122,7 +143,9 @@ func (h *handleralternatif) UpdateAlternatif(w http.ResponseWriter, r *http.Requ
 	}
 
 	kodealternatif := mux.Vars(r)["kode"]
-	oldData, err := h.AlternatifRepository.GetAlternatifByKode(kodealternatif)
+	kodeKriteria := mux.Vars(r)["kodeKriteria"]
+
+	oldData, err := h.AlternatifRepository.GetAlternatifByKodeAndKodeKriteria(kodealternatif, kodeKriteria)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
@@ -132,6 +155,10 @@ func (h *handleralternatif) UpdateAlternatif(w http.ResponseWriter, r *http.Requ
 
 	if request.NamaAlternatif != "" {
 		oldData.NamaAlternatif = request.NamaAlternatif
+	}
+
+	if request.Nilai != "" {
+		oldData.Nilai = request.Nilai
 	}
 
 	data, err := h.AlternatifRepository.UpdateAlternatif(oldData)
