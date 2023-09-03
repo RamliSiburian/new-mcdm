@@ -21,7 +21,7 @@ func RepositoryPerbandinganAhp(db *gorm.DB) *users {
 func (r *users) FindPerbandinganAhp() ([]models.PerbandinganAhp, error) {
 	var perbandinganAhp []models.PerbandinganAhp
 
-	err := r.db.Order("CAST(kode AS INT) asc").Find(&perbandinganAhp).Error
+	err := r.db.Order("CAST(SUBSTRING(kode FROM 2) AS UNSIGNED) ASC").Find(&perbandinganAhp).Error
 
 	return perbandinganAhp, err
 }

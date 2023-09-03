@@ -27,7 +27,8 @@ func RepositoryAlternatif(db *gorm.DB) *users {
 func (r *users) FindAlternatif() ([]models.Alternatif, error) {
 	var alternatif []models.Alternatif
 
-	err := r.db.Order("kode_kriteria asc").Order("CAST(kode AS INT) asc").Find(&alternatif).Error
+	// err := r.db.Order("kode_kriteria asc").Order("CAST(kode AS INT) asc").Find(&alternatif).Error
+	err := r.db.Order("CAST(SUBSTRING(kode FROM 2) AS UNSIGNED) ASC").Order("CAST(SUBSTRING(kode_kriteria FROM 2) AS UNSIGNED) ASC").Find(&alternatif).Error
 
 	return alternatif, err
 }

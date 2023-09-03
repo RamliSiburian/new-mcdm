@@ -125,14 +125,14 @@ func (h *handlerperbandinganMopa) UpdatePerbandinganMopa(w http.ResponseWriter, 
 		return
 	}
 
-	if request.Kode > 0 {
+	if request.Kode >= 0 {
 		oldData.Kode = request.Kode
 	}
 
 	if request.Deskripsi != "" {
 		oldData.Deskripsi = request.Deskripsi
 	}
-	if request.Nilai > 0 {
+	if request.Nilai >= 0 {
 		oldData.Nilai = request.Nilai
 	}
 

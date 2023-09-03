@@ -10,7 +10,7 @@ var DB *gorm.DB
 func DatabaseInit() {
 	var err error
 
-	DBName := "root:@tcp(127.0.0.1:3306)/mcdm?charset=utf8mb4&parseTime=True&loc=Local"
+	DBName := "ramlisiburian2:Siburian^1512@tcp(127.0.0.1:3306)/mcdm?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(DBName), &gorm.Config{})
 
 	if err != nil {

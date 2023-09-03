@@ -21,7 +21,7 @@ func RepositoryPerbandinganMopa(db *gorm.DB) *users {
 func (r *users) FindPerbandinganMopa() ([]models.PerbandinganMopa, error) {
 	var perbandinganMopa []models.PerbandinganMopa
 
-	err := r.db.Order("CAST(kode AS INT) asc").Find(&perbandinganMopa).Error
+	err := r.db.Order("CAST(SUBSTRING(kode FROM 2) AS UNSIGNED) ASC").Find(&perbandinganMopa).Error
 
 	return perbandinganMopa, err
 }

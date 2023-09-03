@@ -132,7 +132,7 @@ func (h *handlerperbandingancriteriaahp) UpdatePerbandinganCriteriaAhp(w http.Re
 	if request.Deskripsi != "" {
 		oldData.Deskripsi = request.Deskripsi
 	}
-	if request.Nilai > 0 {
+	if request.Nilai >= 0 {
 		oldData.Nilai = request.Nilai
 	}
 
